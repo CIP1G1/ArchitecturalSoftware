@@ -3,4 +3,5 @@ afin d'aporter une solution originale au problème posé, nous avons décider de co
 utilisateur dans le but de facilité la conception de plan manuel. Après reflexion, nous avons décider d'utiliser la librairie pygame comme 
 alternative au module turtle. En effet l'utilisation du module turtle implique un rendu relativement long, qui ne permet pas à l'utilisateur
 de modifier en temps réel la position de ses objets.
-Nous avons donc choisisi de décoreller la création d'objet et la conception du plan. Pygame permet alors de sauvegarder les objets créer dans le prem 
+Nous avons donc choisisi de décoreller la création d'objet et la conception du plan.
+Le rendu
