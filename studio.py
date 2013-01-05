@@ -19,9 +19,9 @@ drawFlat(ecran,posX_flat,posY_flat,long_flat,haut_flat,"75.png","exemple de stud
 drawBathRoom(ecran,posX_flat,posY_flat,0,0)
 
 
-drawObject(ecran, posX_flat+5*m, posY_flat+3*m-20, "canape.png",270)
+
 drawObject(ecran, posX_flat+5*m, posY_flat+3*m-20, "canape.png",180)
-drawObject(ecran, posX_flat+5*m, posY_flat+0.5*m-20, "table.png")
+drawObject(ecran, posX_flat+4.5*m, posY_flat+0.5*m-20, "table.png",90)
 drawObject(ecran, posX_flat, posY_flat+3.5*m, "lavabo_cuisine.png")
 
 pygame.display.flip()

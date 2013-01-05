@@ -18,12 +18,14 @@ drawFlat(ecran,posX_flat,posY_flat,long_flat,haut_flat,"7.png","exemple d'appart
 
 drawBathRoom(ecran,posX_flat,posY_flat,long_flat-3.5*m,0,3.5*m,2*m, True)
 drawBedRoom(ecran,posX_flat,posY_flat,0,0, 3.5*m,3*m, "ch 1")
-drawBedRoom(ecran,posX_flat,posY_flat, 0,haut_flat - 3*m, 2.5*m,3*m, "ch 2")
+drawBedRoom(ecran,posX_flat,posY_flat, 0,haut_flat - 3*m, 5*m,3*m, "ch 2")
+drawKitchen(ecran,posX_flat,posY_flat,3.5*m,0, 3.5*m)
 
-drawObject(ecran, posX_flat+2*m, posY_flat+4.5*m, "canape.png",90)
-drawObject(ecran, posX_flat+0.6*m, posY_flat+3.8*m, "canape.png",180)
-#drawObject(ecran, posX_flat+5*m, posY_flat+0.5*m-20, "table.png",90)
-#drawObject(ecran, posX_flat, posY_flat+3.5*m, "lavabo_cuisine.png")
+drawObject(ecran, posX_flat+3*m, posY_flat+4.5*m, "canape.png",90)
+drawObject(ecran, posX_flat+6.5*m, posY_flat+3.5*m, "billard.png")
+
+drawObject(ecran, posX_flat+5*m, posY_flat+0.7*m-20, "table.png",0)
+
 
 pygame.display.flip()
 continuer = True
