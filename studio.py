@@ -7,12 +7,14 @@ ecran = pygame.display.set_mode((940, 640)) #fenêtre de tracé
 ecran.fill((255,255,255)) # colore en blanc l'écran
 m = 60 #sert pour l'echelle : 1m : 60px
 
-posX_flat = 940/2-3*60
-posY_flat = 640/2-5*30
-long_flat = 7*m-20
+
+long_flat = 7*m
 haut_flat = 5*m
 
-drawFlat(ecran,posX_flat,posY_flat,long_flat,haut_flat,"74.png")
+posX_flat = 940/2- long_flat/2
+posY_flat = 640/2- haut_flat/2
+
+drawFlat(ecran,posX_flat,posY_flat,long_flat,haut_flat,"75.png","exemple de studio")
 
 drawBathRoom(ecran,posX_flat,posY_flat,0,0)
 
