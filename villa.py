@@ -5,9 +5,9 @@ pygame.display.init()
 
 m = 60 #sert pour l'echelle : 1m : 60px
 
-long_terasse = 4*m
+long_terrasse = 4*m
 
-ecran = pygame.display.set_mode((940+long_terasse, 640)) #fenêtre de tracé
+ecran = pygame.display.set_mode((940+long_terrasse, 640)) #fenêtre de tracé
 ecran.fill((255,255,255)) # colore en blanc l'écran
 
 
@@ -31,7 +31,7 @@ drawObject(ecran, posX_flat+6.5*m, posY_flat+3.5*m, "billard.png")
 
 drawObject(ecran, posX_flat+5*m, posY_flat+0.7*m-20, "table.png",0)
 
-drawTerasse(ecran,posX_flat,posY_flat, long_flat,0,4*m,haut_flat)
+drawTerrasse(ecran,posX_flat,posY_flat, long_flat,0,4*m,haut_flat, True)
 
 pygame.display.flip()
 continuer = True

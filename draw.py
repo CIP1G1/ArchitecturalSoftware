@@ -1,4 +1,5 @@
 import pygame
+#fonctions de base
 def drawWall(surface,x,y,long,bol_hor) :
     #dessine un mur de longueur long, horizontale ou verticale
     #4px d'épaisseur soit 6.6cm
@@ -8,7 +9,24 @@ def drawWall(surface,x,y,long,bol_hor) :
         rect = pygame.Rect(x, y, 4, long)   
     pygame.draw.rect(surface,0 , rect, 0)
 
-
+def drawRoom(surface,x,y,long,haut) :
+    #dessine les contours d'une pièce sur surface
+    #position : x, y (par rapport au coin en haut à gauche de la fenêtre)
+    #taille : long, haut (en px)
+    
+    #mur
+    drawWall(surface,x,y,long,1)
+    drawWall(surface,x,y,haut,0)
+    drawWall(surface,x,y+haut-4,long,1)
+    drawWall(surface,x+long-4,y,haut,0)
+    
+def drawObject(surface, x, y, nom, angle = 0) :
+    #dessine un objet à la position voulue avec éventuellement un angle
+    image = pygame.image.load("./image/objets/"+nom)
+    if angle != 0 :
+        image = pygame.transform.rotate(image, angle)
+    surface.blit(image,(x,y))
+    
 def drawTexture(surface,x,y,long,haut,str_text) :
     #dessine la texture d'une pièce
     #str_text nom du fichier de la texture(dans pattern/)
@@ -37,7 +55,8 @@ def drawTexture(surface,x,y,long,haut,str_text) :
                 surface.blit(i_text,(i*long_text+x,j*haut_text+y),text_rect)
             j = j+1
         i = i+1
-    
+
+#fonction combinés    
 def drawFlat(surface,x,y,long,haut,str_text,nom) :
     #dessine les contours du plan habitable avec la texture, le nom et la superficie
     
@@ -45,11 +64,8 @@ def drawFlat(surface,x,y,long,haut,str_text,nom) :
     drawTexture(surface,x,y,long,haut,str_text)
     
     #mur
-    drawWall(surface,x,y,long,1)
-    drawWall(surface,x,y,haut,0)
-    drawWall(surface,x,y+haut-4,long,1)
-    drawWall(surface,x+long-4,y,haut,0)
-
+    drawRoom(surface, x, y,long,haut)
+    
     #nom de la pièce et surface de la pièce
     pygame.font.init()
     font = pygame.font.Font(None, 40) #charge la police par défaut de pygame
@@ -63,18 +79,7 @@ def drawFlat(surface,x,y,long,haut,str_text,nom) :
     drawObject(surface,x, y+haut, "echelle.png")
     
     
-def drawRoom(surface,x,y,long,haut) :
-    #dessine les contours d'une pièce sur surface
-    #position : x, y (par rapport au coin en haut à gauche de la fenêtre)
-    #taille : long, haut (en px)
-    
-    #mur
-    drawWall(surface,x,y,long,1)
-    drawWall(surface,x,y,haut,0)
-    drawWall(surface,x,y+haut-4,long,1)
-    drawWall(surface,x+long-4,y,haut,0)
 
-    
 
     
 def drawBathRoom(surface,x_flat,y_flat,x,y,long=90,haut=120, bol_baignoire = False) :
@@ -124,6 +129,7 @@ def drawBedRoom(surface,x_flat,y_flat,x,y,long=240,haut=180, nom = "chambre") :
     i_texte = font.render(texte,1,(200,0,20))
     surface.blit(i_texte, (x_bed+long/2 - i_texte.get_width()/2,y_bed+haut/2))
     pygame.font.quit()
+    
 def drawKitchen(surface,x_flat,y_flat,x,y,long=180,haut=180, nom = "cuisine") :
     #dessine une cuisine standart
     
@@ -147,17 +153,18 @@ def drawKitchen(surface,x_flat,y_flat,x,y,long=180,haut=180, nom = "cuisine") :
     surface.blit(i_texte, (x_kitch+long/2 - i_texte.get_width()/2,y_kitch+haut/2))
     pygame.font.quit()
     
-def drawTerasse(surface,x_flat,y_flat,x,y,long=240,haut=180, nom = "terasse") :
-    #dessine une terasse standart avec ou sans piscine
+def drawTerrasse(surface,x_flat,y_flat,x,y,long=240,haut=180,  bol_piscine = False, nom = "terrasse") :
+    #dessine une terrasse standart avec ou sans piscine
     
     x_ter = x_flat + x
     y_ter = y_flat + y
     
     drawTexture(surface, x_ter,y_ter,long,haut, "94.jpg")
 
-    #texture de la piscine
-    drawTexture(surface, x_ter +20 ,y_ter + 40 ,long - 40,haut - 80, "eau.png")
-    #affiche le nom et la superficie de la terasse
+    if bol_piscine == True :
+        drawTexture(surface, x_ter +20 ,y_ter + 40 ,long - 40,haut - 80, "eau.png")
+    
+    #affiche le nom et la superficie de la terrasse
     pygame.font.init()
     font = pygame.font.Font(None, 40) #charge la police par défaut de pygame
     surf = long*haut/3600 # surface en m²
@@ -166,9 +173,4 @@ def drawTerasse(surface,x_flat,y_flat,x,y,long=240,haut=180, nom = "terasse") :
     surface.blit(i_texte, (x_flat + x + long/2 - i_texte.get_width()/2, y_flat - i_texte.get_height()))
     pygame.font.quit()
              
-def drawObject(surface, x, y, nom, angle = 0) :
-    #dessine un objet à la position voulue avec éventuellement un angle
-    image = pygame.image.load("./image/objets/"+nom)
-    if angle != 0 :
-        image = pygame.transform.rotate(image, angle)
-    surface.blit(image,(x,y))
+

@@ -1,0 +1,35 @@
+1) Introduction :
+
+2) Structure du projet :
+Afin de répondre au problème initial, nous l'avons décomposé en sous problèmes : 
+Un fichier draw regroupe les différentes fonctions de dessin, en commençant par 4 fonctions de base.
+-drawWall : fonction permettant de construire un mur horizontal ou vertical, 
+-drawRoom : fonction permettant de construire une pièce  composée de 4 murs
+-drawObject : fonction permettant de dessiner un objet sur une surface 
+-drawTexture : fonction permettant de dessiner une texture sur une surface 
+
+A l'aide de ces fonctions de base nous avons ensuite développé des fonctions 
+d'un plus au niveau utilisant les 4 fonctions précédentes.
+
+-drawFlat : fonction permettant de dessiner les contours du plan habitable (à l'aide de drawRoom),
+et d'y insérer la texture principale (via drawTexture) ainsi que le nom du batiment, sa superficie 
+en m²  et l'échelle utililisé (toujours 60 px pour un mètre).
+
+Pour faciliter la construction de différent studio, appartement ou villa il nous
+a semblé ensuite judicieu de mettre au point des fonctions dessinant des pièces standards
+telle qu'une cuisine afin de facilité la mise au point d'un nouveau plan.
+Ces fonctions ont des paramètres par défaut (souvent une taille standard et un nom), ainsi qu'une texture prédéfinie.
+
+-drawBathRoom : fonction permettant de construire une salle de bain standardisé contenant un lavabo et des toilettes, avec ou sans baignoire
+-drawBedRoom : 	fonction permettant de construire une chambre à coucher contenant un lit.
+-drawKitchen : fonction permettant de construire une cuisine  avec un lavabo et un micro-onde.
+-drawTerasse :  fonction permettant de construire une terrasse avec ou sans piscine et affichant son nom et sa superficie.
+
+
+3) Mode d'emploi de exempleAppartement.py :
+Ce fichier permet de choisir parmis 3 exemples de bâtiments : un studio de 35m², un appartement avec deux chambres de 77m² et
+une villa de 108m² habitable avec 3 chambres et une terrasse de 36m² munie d'une piscine.
+Le choix se fait en console puis le bâtiment est chargé dans une fenêtre pygame de taille adéquate.
+4) Difficultés rencontrées :
+
+5)Travail restant à faire :
