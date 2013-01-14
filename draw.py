@@ -1,24 +1,28 @@
 import pygame
 #fonctions de base
-def drawWall(surface,x,y,long,bol_hor) :
+def drawWall(surface,x,y,long,bol_hor, ep = 4) :
     #dessine un mur de longueur long, horizontale ou verticale
-    #4px d'épaisseur soit 6.6cm
+    #ep : epaisseur en pixel du mur, par défaut 4px d'épaisseur soit 6.6cm
+    
     if bol_hor == True :
-        rect = pygame.Rect(x, y, long, 4)
+        rect = pygame.Rect(x, y, long, ep)
     else :
-        rect = pygame.Rect(x, y, 4, long)   
-    pygame.draw.rect(surface,0 , rect, 0)
-
-def drawRoom(surface,x,y,long,haut) :
+        rect = pygame.Rect(x, y, ep, long)   
+    if ep == 6 : #mur principal, en noir
+        pygame.draw.rect(surface,0 , rect, 0)
+    else : #autre mur, en gris claire
+        pygame.draw.rect(surface,(200,200,200) , rect, 0)
+def drawRoom(surface,x,y,long,haut, ep = 4) :
     #dessine les contours d'une pièce sur surface
     #position : x, y (par rapport au coin en haut à gauche de la fenêtre)
     #taille : long, haut (en px)
+    #ep : epaisseur des murs, 4 par défaut pour une pièce, 6 pour les contours principaux
     
     #mur
-    drawWall(surface,x,y,long,1)
-    drawWall(surface,x,y,haut,0)
-    drawWall(surface,x,y+haut-4,long,1)
-    drawWall(surface,x+long-4,y,haut,0)
+    drawWall(surface,x,y,long,1, ep)
+    drawWall(surface,x,y,haut,0, ep)
+    drawWall(surface,x,y+haut-ep,long,1, ep)
+    drawWall(surface,x+long-ep,y,haut,0, ep)
     
 def drawObject(surface, x, y, nom, angle = 0) :
     #dessine un objet à la position voulue avec éventuellement un angle
@@ -64,12 +68,13 @@ def drawFlat(surface,x,y,long,haut,str_text,nom) :
     drawTexture(surface,x,y,long,haut,str_text)
     
     #mur
-    drawRoom(surface, x, y,long,haut)
+    drawRoom(surface, x, y,long,haut, 6)
     
     #nom de la pièce et surface de la pièce
     pygame.font.init()
     font = pygame.font.Font(None, 40) #charge la police par défaut de pygame
     surf = long*haut/3600 # surface en m²
+    surf = round(surf, 1)
     texte = nom + " : " + str(surf) + "m²"
     i_texte = font.render(texte,1,(0,100,200)) 
     surface.blit(i_texte, (x + long/2 - i_texte.get_width()/2, y - i_texte.get_height()))
@@ -87,18 +92,22 @@ def drawBathRoom(surface,x_flat,y_flat,x,y,long=90,haut=120, bol_baignoire = Fal
     
     x_bath = x_flat + x
     y_bath = y_flat + y
+
+    if haut < 120 : #pas assès de place pour une baignoire
+        bol_baignoire = False
     
     drawTexture(surface, x_bath,y_bath,long,haut, "74.png")
     drawRoom(surface, x_bath, y_bath,long,haut)
     
     drawObject(surface, x_bath + 4, y_bath, "wc.png")
-    drawObject(surface, x_bath + 16,y_bath + 82, "lavabo_bathroom.png")
+    drawObject(surface, x_bath + 16,y_bath + haut - 34, "lavabo_bathroom.png")
     if bol_baignoire == True :
         drawObject(surface, x_bath + long - 52,y_bath + 4, "baignoire.png")
     #nom de la pièce et surface de la pièce
     pygame.font.init()
     font = pygame.font.Font(None, 20) #charge la police par défaut de pygame
     surf = long*haut/3600 # surface en m²
+    surf = round(surf, 1)
     texte = "salle de bain " 
     i_texte = font.render(texte,1,(0,0,200))
     surface.blit(i_texte, (x_bath,y_bath+haut/3))
@@ -122,6 +131,7 @@ def drawBedRoom(surface,x_flat,y_flat,x,y,long=240,haut=180, nom = "chambre") :
     pygame.font.init()
     font = pygame.font.Font(None, 20) #charge la police par défaut de pygame
     surf = long*haut/3600 # surface en m²
+    surf = round(surf, 1)
     texte = nom
     i_texte = font.render(texte,1,(200,0,20))
     surface.blit(i_texte, (x_bed+20,y_bed+haut/3))
@@ -145,6 +155,7 @@ def drawKitchen(surface,x_flat,y_flat,x,y,long=180,haut=180, nom = "cuisine") :
     pygame.font.init()
     font = pygame.font.Font(None, 20) #charge la police par défaut de pygame
     surf = long*haut/3600 # surface en m²
+    surf = round(surf, 1)
     texte = nom
     i_texte = font.render(texte,1,(150,115,185))
     surface.blit(i_texte, (x_kitch+20,y_kitch+haut/3))
@@ -168,6 +179,7 @@ def drawTerrasse(surface,x_flat,y_flat,x,y,long=240,haut=180,  bol_piscine = Fal
     pygame.font.init()
     font = pygame.font.Font(None, 40) #charge la police par défaut de pygame
     surf = long*haut/3600 # surface en m²
+    surf = round(surf, 1)
     texte = nom + " : " + str(surf) + "m²"
     i_texte = font.render(texte,1,(0,100,200)) 
     surface.blit(i_texte, (x_flat + x + long/2 - i_texte.get_width()/2, y_flat - i_texte.get_height()))
